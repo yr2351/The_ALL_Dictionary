@@ -1,24 +1,24 @@
 # TheALLDictionary
 CSE 416 final project at the State University of New York Korea (SUNY Korea)
 
-## About Members and Roles
+## &#128101; About Members and Roles
 
-#### Yoora Kim 
+#### Yoora Kim  [@yr2351](https://github.com/yr2351)
 * Role: Lead programmer
-* Email: yoora.kim@stonybrook.edu
 
-#### Seo-young Ko 
+#### Seo-young Ko [@syko0531](https://github.com/syko0531) 
 * Role: Designer
-* Email: seoyoung.ko@stonybrook.edu
 
-#### Seung-jae Kang 
+#### Seung-jae Kang [@kangsj45](https://github.com/kangsj45)
 * Role: Designer
-* Email: seungjae.kang@stonybrook.edu
 
-## Advisor
+## 🎓Advisor
 
 #### Professor Alexander Kuhn
 * Teaching Assistant Professor in Computer Science at SUNY Korea
+
+## &#128197; Project Timeline
+*2021/03 ~ 2021/06*
 
 ## Problem
 
@@ -180,7 +180,7 @@ pip install asyncio
  git commit -am "First Commit"
  git push heroku master
 ```
-8. If the following steps run successfully, the website URL will be printed in the console. 
+8. If the following steps run successfully, the website URL will be printed in the console. (Closed)
 ```
 https://rocky-caverns-88608.herokuapp.com/
 ```
@@ -190,7 +190,7 @@ https://rocky-caverns-88608.herokuapp.com/
 * To test the software, you shall initially download the latest stable version of this software. Please refer "Instructions for checking out the latest stable version" to do this.
 
 ### Instructions for testing on the internet
-Enter the https://rocky-caverns-88608.herokuapp.com/
+Enter the https://rocky-caverns-88608.herokuapp.com/ (Closed)
 
 ### Instructions for testing download
 1. Download the zip file
@@ -233,10 +233,9 @@ More explanations are in : https://rocky-caverns-88608.herokuapp.com/about
 ### For download file
 last edit: 2021.06.03 05:00 PM (KST)
 ### For online site
-last deploy: 2021.06.03 05:00 PM (KST), Released v41
+last deploy: 2021.06.03 05:00 PM (KST), Released v41 (Closed)
 
 ## Bug tracking
 
 * All users can view and report a bug in "GitHub Issues" of our repository. 
-* Here is the URL for viewing and reporting a list of bugs: https://github.com/syko0531/CSE416/issues
- 
+* Here is the URL for viewing and reporting a list of bugs: https://github.com/syko0531/CSE416/issues (Closed)
