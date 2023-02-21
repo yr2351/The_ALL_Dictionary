@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon/favicon.ico') }}" type="image/x-icon" />
+
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/libs.bundle.css') }}">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/theme.bundle.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/makeCard.css') }}" />
+
+  <script src="https://kit.fontawesome.com/e547ffbc9a.js" crossorigin="anonymous"></script>
+  <!-- Title -->
+  <title>The ALL Dictionary</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-gray-200">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="./">
+        <img src="{{ url_for('static', filename='assets/img/brand.svg') }}" class="navbar-brand-img" alt="..." />
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fe fe-x"></i>
+        </button>
+
+        <!-- Navigation -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./about"> About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./"> Search </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./cardHome"> Card </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./squiz"> Quiz </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./wc"> Challenge </a>
+          </li>
+        </ul>
+
+        <!-- Button -->
+        {% if loginAccount == None %}
+        <a href="./signin" class="btn btn-primary shadow lift me-1 ms-auto">
+          Sign in
+        </a>
+        <a href="./signup" class="btn btn-primary lift">Sign up</a>
+        {% endif %}
+
+
+        {% if loginAccount != None %}
+        <a href="./mypage" class="btn btn-primary shadow lift me-1 ms-auto">
+          My page
+        </a>
+        <a id="signout-btn" class="btn btn-primary lift">Sign out</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <section class="pt-4 pt-md-11">
+    <div class="container">
+      <br />
+      <div class="row">
+        <div class="main_content">
+          <!-- Card Maker-->
+          <div id="make_area">
+            <h2 id="cardHome"><b>Make Your Own Cards!</b></h2>
+
+            <div id="preview"></div>
+            <div id="inputCard-wrapper">
+              <div class="option_wrapper"> <!--Drop down menu shows the existing package-->
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">{{ packages[0]['name'] }}</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> 
+                  {% for package in packages %}
+                  <li><a class="dropdown-item" onclick="selectPackage(this);">{{ package['name'] }}</a></li>
+                  {% endfor %}
+                </ul>
+
+                <input style="display: none" id="files" type="file" onchange="handleFiles(this.files)" />
+                <input id="imageBtn" type="button" onclick="upload()" value="Choose Image" />
+              </div>
+
+              <div id="inputCard">
+                <p id="instruction-word"><i>Write the Word</i></p>
+                <input id="input-word" class="form-control" type="text" aria-label="default input example" />
+                <p id="instruction-pos"><i>Part of Speech</i></p>
+                <input id="input-pos" class="form-control" type="text" aria-label="default input example" />
+                <p id="instruction"><i>Write the Definition</i></p>
+                <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="4"></textarea>
+              </div>
+              <div class="btn_wrapper">
+                <button id="save-btn" type="button" class="btn btn-primary btn-md" onclick="saveWord();">
+                  Save
+                </button>
+                <button id="cancel-btn" type="button" class="btn btn-secondary btn-md" onclick="cancelWord();">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Search History Start-->
+          <div id="history_area">
+            <h3 id="history_title"><b>Search History</b></h3>
+            <div class="search-group">
+              <ul class="list-group">
+                {% for hist in history %}
+                <li class="list-group-item">
+                  <input class="form-check-input" type="checkbox" value="" aria-label="..." />
+                  <span style="margin-left: 10px;">{{ hist }}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <br />
+            <div id="history_btn">
+
+              <button id="searchHistoryBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#addListModal_extPac" style="margin-bottom:10px;">
+                Add to Package
+              </button>
+              <!--
+            </div>
+            <div id="history_btn"> -->
+
+              <button id="searchHistoryBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#addListModal_newPac">
+                Add to New Package
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Add list modal new Package START-->
+        <div class="modal fade" id="addListModal_newPac" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                  <b>Add New Package</b>
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="newPackage" class="form-label">New Package Name</label>
+                  <input type="userID" class="form-control" id="newPackage" name="newPackage" />
+                </div>
+                <br />
+                <hr />
+                <div>
+                  <!-- cancel/submit Button-->
+                  <button style="float: right; margin-left: 5px" class="btn btn-primary" onclick="addToNewPackage();">
+                    Submit</button>
+                  <button style="float: right" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--END: Add list modal new Package-->
+
+        <!-- START: Add list modal existing Package -->
+        <div class="modal fade" id="addListModal_extPac" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">
+                  <b>Add to Existing Package</b>
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                
+              </div>
+              <!--Modal Body-->
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="extPackage" class="form-label">Choose Package</label>
+                  <div>
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2"
+                      data-bs-toggle="dropdown" aria-expanded="false" style="width:100%">{{ packages[0]['name']
+                      }}</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                      {% for package in packages %}
+                      <li><a class="dropdown-item" onclick="choosePackage(this);">{{ package['name'] }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                <br />
+                <hr />
+                <div>
+                  <!--cancel/submit Button-->
+                  <button style="float: right; margin-left: 5px" class="btn btn-primary" onclick="addToExtPackage();">
+                    Submit</button>
+                  <button style="float: right" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--END: add list modal existing Package -->
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 py-md-11 bg-gray-200" style="margin-top: 10vh">
+    <div class="container">
+      <div class="row">
+        <p class="text-gray-700 mb-2 text-center">
+          Copyright &copy; CSE 416 The ALL Dictionary
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
+  <!-- Vendor JS -->
+  <script src="{{ url_for('static', filename='assets/js/vendor.bundle.js') }}"></script>
+
+  <!-- Theme JS -->
+  <script src="{{ url_for('static', filename='assets/js/theme.bundle.js') }}"></script>
+
+  <!-- Sign out -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='assets/js/signout.js') }}"></script>
+
+  <script>
+    const files = document.getElementById("files");
+    const preview = document.getElementById("preview");
+    const upload = () => {
+      files.click();
+    };
+    const handleFiles = (files) => {
+      const file = files[files.length - 1];
+      if (!file.type.startsWith("image/")) {
+        return;
+      }
+
+      const img = document.createElement("img");
+      // img.classList.add("obj");
+      img.height = 200;
+      img.file = file;
+      preview.hasChildNodes() && preview.firstChild.remove();
+      preview.appendChild(img); 
+
+      const reader = new FileReader();
+      reader.onload = (function (aImg) {
+        return function (e) {
+          aImg.src = e.target.result;
+        };
+      })(img);
+      reader.readAsDataURL(file);
+    };
+
+    const selectPackage = (obj) => {
+      document.getElementById('dropdownMenuButton1').innerText = obj.text;
+    }
+
+    const choosePackage = (obj) => {
+      document.getElementById('dropdownMenuButton2').innerText = obj.text;
+    }
+
+    const cancelWord = () => {
+      preview.hasChildNodes() && preview.firstChild.remove();
+      document.getElementById('input-word').value = '';
+      document.getElementById('input-pos').value = '';
+      document.getElementById('exampleFormControlTextarea1').value = '';
+    }
+
+    const saveWord = () => {
+      package = document.getElementById('dropdownMenuButton1').innerText
+      image = preview.hasChildNodes() ? preview.firstChild.src : ''
+      word = document.getElementById('input-word').value;
+      pos = document.getElementById('input-pos').value;
+      definition = document.getElementById('exampleFormControlTextarea1').value;
+      fetch('./makeCard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json;"
+        },
+        body: JSON.stringify({ package, word, image, pos, definition })
+      }).then((res) => res.json())
+        .then(result => {
+          if (result.result === "success") {
+            location.href = "/showCard";
+          }
+          else if (result.result === "failed") {
+            alert('You must fill all inputs!')
+          }
+        })
+    }
+
+    const addToExtPackage = () => {
+      var packageName = document.getElementById('dropdownMenuButton2').innerText
+      var history_list = document.getElementsByClassName('list-group-item');
+      checklist = [];
+      for (var i = 0; i < history_list.length; i++) {
+        var checkbox = history_list[i].childNodes[1]
+        var text = history_list[i].childNodes[3].innerText
+        if (checkbox.checked) {
+          checklist.push(text);
+        }
+      }
+      fetch('/addPackage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json;"
+        },
+        body: JSON.stringify({ exist: true, name: packageName, words: checklist })
+      }).then(res => res.text().then(text => location.href = text))
+    }
+    const addToNewPackage = () => {
+      var packageName = document.getElementById('newPackage').value;
+      var history_list = document.getElementsByClassName('list-group-item');
+      checklist = [];
+      for (var i = 0; i < history_list.length; i++) {
+        var checkbox = history_list[i].childNodes[1]
+        var text = history_list[i].childNodes[3].innerText
+        if (checkbox.checked) {
+          checklist.push(text);
+        }
+      }
+      fetch('/addPackage', {
+        method: "POST",
+        headers: {
+          'Content-Type': "application/json;"
+        },
+        body: JSON.stringify({ exist: false, name: packageName, words: checklist })
+      }).then(res => res.text().then(text => location.href = text))
+    }
+  </script>
+</body>
+</html>

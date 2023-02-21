@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='assets/favicon/favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Map CSS -->
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"
+    />
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/libs.bundle.css') }}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/theme.bundle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/416.css') }}" />
+
+    <script
+      src="https://kit.fontawesome.com/e547ffbc9a.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Title -->
+    <title>The ALL Dictionary</title>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-gray-200">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="./">
+          <img
+            src="{{ url_for('static', filename='assets/img/brand.svg') }}"
+            class="navbar-brand-img"
+            alt="..."
+          />
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <!-- Toggler -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fe fe-x"></i>
+          </button>
+
+          <!-- Navigation -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./about"> About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./"> Search </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./cardHome"> Card </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./squiz"> Quiz </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./wc"> Challenge </a>
+            </li>
+          </ul>
+
+          <!-- Button -->
+          {% if loginAccount == None %}
+              <a
+              href="./signin"
+              class="btn btn-primary shadow lift me-1 ms-auto"
+            >
+              Sign in
+            </a>
+            <a href="./signup" class="btn btn-primary lift">Sign up</a>
+          {% endif %}
+          
+
+          {% if loginAccount != None %}
+            <a
+            href="./mypage"
+            class="btn btn-primary shadow lift me-1 ms-auto"
+            >
+              My page
+            </a>
+            <a id="signout-btn" class="btn btn-primary lift">Sign out</a>
+          {% endif %}
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="pt-4 pt-md-11">
+      <div class="container">
+        <br />
+        <div class="row">
+          <div class="col-md-12 searchContainer">
+            <h1 class="title">The ALL Dictionary</h1>
+            <div class="input-group mb-3 searchBox">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                aria-label="search"
+                id="searchWord"
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                onclick ="search()"
+              >
+                <i class="fas fa-search"></i> </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="text-center mb-0">
+            <small class="text-muted"
+              >If you need more information, you can visit
+              <a
+                class="text-danger"
+                href="./about"
+                > About</a
+              >.</small
+            >
+          </p>
+        </div>
+        <div class="dictionaries">
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/merriamlearner.jpg') }}"
+            alt="Merriam Webster's Learner"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/merriam.jpg') }}"
+            alt="Merriam Webster"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/oxford.jpg') }}"
+            alt="Oxford Dictionary"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/urban.jpg') }}"
+            alt="Urban Dictionary"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/wikipedia.png') }}"
+            alt="Wikipedia"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/googlenews.jpg') }}"
+            alt="Google News"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/googlephoto.png') }}"
+            alt="Google Photo"
+          />
+          <img
+            class="image"
+            src="{{ url_for('static', filename='assets/img/dictionary/youtube.png') }}"
+            alt="Youtube"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 py-md-11 bg-gray-200" style="margin-top: 10vh">
+      <div class="container">
+        <div class="row">
+          <p class="text-gray-700 mb-2 text-center">
+            Copyright &copy; CSE 416 The ALL Dictionary
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+
+
+      $(document).ready(function(){
+        $('#searchWord').on('keyup',function(e){
+          if (e.keyCode == 13) {
+              var word = $(this).val();
+              if(word.length>1){
+                  search();
+              }else{
+                alert('Please search for more than 2 letters')
+              }
+          }
+        })
+      })
+
+      function search() {
+        var word = document.getElementById("searchWord").value;
+        if (word.length > 1) {
+          $.ajax({
+            url:'./addScHis',
+            type:'post',
+            data:{
+              word:word
+            },
+            success:function(res){
+              console.log(res);
+            },
+            error:function(err){
+
+            }
+          });
+          self.location.href = "./searchResult/" + word;
+        } else {
+          alert('Please search for more than 2 letters')
+        }
+      }
+    </script>
+    
+    <!-- Map JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
+    <!-- Vendor JS -->
+    <script src="{{ url_for('static', filename='assets/js/vendor.bundle.js') }}"></script>
+
+    <!-- Theme JS -->
+    <script src="{{ url_for('static', filename='assets/js/theme.bundle.js') }}"></script>
+
+    <!-- Sign out -->
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/signout.js') }}"></script>
+  </body>
+</html>

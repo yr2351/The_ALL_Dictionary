@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='assets/favicon/favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Map CSS -->
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"
+    />
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/libs.bundle.css') }}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/theme.bundle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/416.css') }}" />
+
+    <script
+      src="https://kit.fontawesome.com/e547ffbc9a.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Title -->
+    <title>The ALL Dictionary</title>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-gray-200">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="./">
+          <img
+            src="{{ url_for('static', filename='assets/img/brand.svg') }}"
+            class="navbar-brand-img"
+            alt="..."
+          />
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <!-- Toggler -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fe fe-x"></i>
+          </button>
+
+          <!-- Navigation -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./about"> About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./"> Search </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./cardHome"> Card </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./squiz"> Quiz </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./wc"> Challenge </a>
+            </li>
+          </ul>
+
+          <!-- Button -->
+          {% if loginAccount == None %}
+              <a
+              href="./signin"
+              class="btn btn-primary shadow lift me-1 ms-auto"
+            >
+              Sign in
+            </a>
+            <a href="./signup" class="btn btn-primary lift">Sign up</a>
+          {% endif %}
+          
+
+          {% if loginAccount != None %}
+            <a
+            href="./mypage"
+            class="btn btn-primary shadow lift me-1 ms-auto"
+            >
+              My page
+            </a>
+            <a id="signout-btn" class="btn btn-primary lift">Sign out</a>
+          {% endif %}
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="pt-4 pt-md-1">
+      <div class="container">
+        <br />
+        <div class="row">
+          <div class="col-md-12" style="text-align: center;">
+            <h1 class="q">Questions</h1>
+          </div>
+        </div>
+        <div id="ctimer" style="text-align: right">Timer Begins</div>
+        <div class="question">
+          <form action="/wcresult" id="wc" method="POST">
+            {% for i in quest %}
+              <div class="question">&nbsp;&nbsp;<strong>{{i.qid}}. {{i.question}}</strong></div><br>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{i.qid}}" value="{{i.option1}}">
+                <label class="form-check-label">
+                  {{i.option1}}
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{i.qid}}" value="{{i.option2}}">
+                <label class="form-check-label">
+                  {{i.option2}}
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{i.qid}}" value="{{i.option3}}">
+                <label class="form-check-label">
+                  {{i.option3}}
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{i.qid}}" value="{{i.option4}}">
+                <label class="form-check-label">
+                  {{i.option4}}
+                </label>
+              </div>
+              <br><br>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary shadow lift col-md-12">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 py-md-11 bg-gray-200" style="margin-top: 10vh">
+      <div class="container">
+        <div class="row">
+          <p class="text-gray-700 mb-2 text-center">
+            Copyright &copy; CSE 416 The ALL Dictionary
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <!-- Map JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
+    <!-- Vendor JS -->
+    <script src="{{ url_for('static', filename='assets/js/vendor.bundle.js') }}"></script>
+
+    <!-- Theme JS -->
+    <script src="{{ url_for('static', filename='assets/js/theme.bundle.js') }}"></script>
+
+    <!-- Sign out -->
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/signout.js') }}"></script>
+    
+    <!-- Timer -->
+    <script>
+      var timeLeft = 21;
+          var elem = document.getElementById('ctimer');
+          
+          var timerId = setInterval(countdown, 1000);
+          
+          function countdown() {
+            if (timeLeft == -1) {
+              clearTimeout(timerId);
+              document.getElementById("wc").submit();
+            } else {
+              elem.innerHTML = timeLeft + ' seconds remaining';
+              timeLeft--;
+            }
+          }
+    </script>
+  </body>
+</html>

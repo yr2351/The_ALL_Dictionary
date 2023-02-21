@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon/favicon.ico') }}" type="image/x-icon" />
+
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/libs.bundle.css') }}">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/theme.bundle.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/416.css') }}" />
+
+  <script src="https://kit.fontawesome.com/e547ffbc9a.js" crossorigin="anonymous"></script>
+  <!-- Title -->
+  <title>The ALL Dictionary</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-gray-200">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="./">
+        <img src="{{ url_for('static', filename='assets/img/brand.svg') }}" class="navbar-brand-img" alt="..." />
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fe fe-x"></i>
+        </button>
+
+        <!-- Navigation -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./about"> About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./"> Search </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./cardHome"> Card </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./squiz"> Quiz </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./wc"> Challenge </a>
+          </li>
+        </ul>
+
+        <!-- Button -->
+        {% if loginAccount == None %}
+        <a href="./signin" class="btn btn-primary shadow lift me-1 ms-auto">
+          Sign in
+        </a>
+        <a href="./signup" class="btn btn-primary lift">Sign up</a>
+        {% endif %}
+
+
+        {% if loginAccount != None %}
+        <a href="./mypage" class="btn btn-primary shadow lift me-1 ms-auto">
+          My page
+        </a>
+        <a id="signout-btn" class="btn btn-primary lift">Sign out</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <section class="pt-6 pt-md-8 pb-8 mb-md-8">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="row mb-6 mb-md-8">
+            <div class="col-auto">
+
+              <!-- Icon -->
+              <div class="text-white">
+                <img
+                width = "150px"
+                height = "auto"
+                src="{{ url_for('static', filename='assets/img/icon.png') }}"
+                alt="..."
+              />
+              </div>
+
+            </div>
+            <div class="col ms-n4">
+
+              <!-- Heading -->
+              <h2 class="fw-bold mb-5">
+                About
+              </h2>
+
+              <!-- Text -->
+              <p style="color:#506690 ">
+                When people try to look up a definition of an English word, they may use online or paper-based English dictionary.</br> BUT sometimes, the information from a source is not sufficient to fully understand.
+                Many of them give up understading the word instead searching for another sources again.
+              </br>
+                <strong><i>“TheALLDictionary”</i></strong> is a web site that helps people to search the meanings of the term from Merriam-Webster Learner’s dictionary, Merriam-Webster dictionary, Oxford English Dictionary, Urban dictionary,
+                Wikipedia, Google News, Google Images, and YouTube at once.
+                The major target user group of TheALLDictionary is students who learn or use English at school.
+              </p>
+
+            </div>
+          </div> <!-- / .row -->
+
+          <!-- Search Part -->
+          <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="searchPart">
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center">
+                  <div class="me-auto">
+
+                    <!-- Heading -->
+                    <h4 class="fw-bold mb-0">
+                      📖&nbsp;&nbsp;Dictionary
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="fs-sm text-muted mb-0">
+                          You can search the meaning of the term from Merriam Webster's Learner, Merriam Webster, Oxford Dictionary, Urban
+                          Dictionary, Wikipedia, Google News, Google Photo and Youtube at once.
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse"
+                  href="#searchOne" role="button" aria-expanded="false" aria-controls="searchOne">
+
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I search for a word?
+                  </span>
+                  
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+                  
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+
+                  </div>
+
+                </a>
+
+                <!-- Collapse -->
+                <div class="collapse" id="searchOne" data-bs-parent="#searchPart">
+                  <div class="py-5">
+                
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Type the word the user wants to look up in the search box.</li>
+                        <li>Click the search icon or press the Enter key.</li>
+                        <li>Wait for a while until the result page appears. (It probably takes 5-7 seconds)</li>
+                      </ol>
+                    </div>
+                
+                  </div>
+                </div>
+                
+                </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#searchTwo"
+                  role="button" aria-expanded="false" aria-controls="searchTwo">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I change sources order?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="searchTwo" data-bs-parent="#searchPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Press the "Change Dictionary Order" button.</li>
+                        <li>Select the order of dictionary source.</li>
+                        <li>The name of the selected source turns red.</li>
+                        <li>If the user selects the same source more than twice, alart message will be appear.</li>
+                        <li>After selecting all sources of order, press the "Change" button.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              </div>
+              </div>
+
+
+          <!-- Quiz Part -->
+          <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="quizPart">
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center">
+                  <div class="me-auto">
+
+                    <!-- Heading -->
+                    <h4 class="fw-bold mb-0">
+                      📝&nbsp;&nbsp;Quiz
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="fs-sm text-muted mb-0">
+                      You can take a quiz based on your notecards!
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#quizOne"
+                  role="button" aria-expanded="false" aria-controls="quizOne">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I take the quiz?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a>
+              
+                <!-- Collapse -->
+                <div class="collapse" id="quizOne" data-bs-parent="#quizPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "Card" on the navigation bar.</li>
+                        <li>Select the package you want to take a quiz.</li>
+                        <li>Choose the correct answer for each question.
+                          <br>✨&nbsp;&nbsp; If you didn't type definition on your note card, the question would be blank.
+                        </li>
+                        <li>Click the "Submit" button, you can see the score.</li>
+                        <li>If you click the "Finished" button, it moves to the quiz page.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#quizTwo"
+                  role="button" aria-expanded="false" aria-controls="quizTwo">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I see the quiz history?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="quizTwo" data-bs-parent="#quizPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "Quiz" on the navigation bar.</li>
+                        <li>Click the "History" button.</li>
+                        <li>Select the date of history you want to see.</li>
+                        <li>Click the "Submit" button.</li>
+                        <li>You can check what you got wrong in the quiz.</li>
+                        <li>If you click "Go back" button, it moves to the quiz page.</li>
+                        <li>Or you can check another quiz history by repeating #3 and #4.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              </div>
+              </div>
+
+          <!-- Challenge Part -->
+          <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="challengePart">
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center">
+                  <div class="me-auto">
+
+                    <!-- Heading -->
+                    <h4 class="fw-bold mb-0">
+                      🏅&nbsp;&nbsp;Challenge
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="fs-sm text-muted mb-0">
+                      You can participate in the word challenge for study!
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#challengeOne"
+                  role="button" aria-expanded="false" aria-controls="challengeOne">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I take a word challenge?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a>
+              
+                <!-- Collapse -->
+                <div class="collapse" id="challengeOne" data-bs-parent="#searchCard">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "Challenge" on the navigation bar.</li>
+                        <li>Click the "Start" button.</li>
+                        <li>When the questions come out, read the questions and choose the answer.</li>
+                        <li>If you press the "Submit" button or the time limit is up, the answer will be automatically submitted.</li>
+                        <li>You can see your score at the challenge result page.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#challengeTwo"
+                  role="button" aria-expanded="false" aria-controls="challengeTwo">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I see the ranking?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="challengeTwo" data-bs-parent="#challengePart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "Challenge" on the navigation bar.</li>
+                        <li>Click the "View Rank" button.</li>
+                        <li>You can see the ranking of the word challenge.</li>
+                        <li>If click the "Go back" button, it moves to the challenge page.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              </div>
+              </div>
+          <!-- NoteCard Part -->
+          <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="notecardPart">
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center">
+                  <div class="me-auto">
+
+                    <!-- Heading -->
+                    <h4 class="fw-bold mb-0">
+                      🗂️&nbsp;&nbsp;NoteCard
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="fs-sm text-muted mb-0">
+                      For further memorizing, you can make their own notecards and study with them.
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse"
+                  href="#notecardOne" role="button" aria-expanded="false" aria-controls="notecardOne">
+
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I organize my notecards?
+                  </span>
+
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+
+                  </div>
+
+                </a>
+
+                <!-- Collapse -->
+                <div class="collapse" id="notecardOne" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. After you signed in with your account, click the Card tab on the top navigation bar to go to noteard page. </br>
+                      2. On the Card page, you may see a button named "Add New Package" on right-top side. </br>
+                      3. Click "Add New Package" button, and give the name for your first card package. </br>
+                      4. Finally, click the "submit" button. </br> </br>
+                      <b>Congratulations!</b> You will see your first card package.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse"
+                  href="#notecardTwo" role="button" aria-expanded="false" aria-controls="notecardTwo">
+
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I make a notecard?
+                  </span>
+
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+
+                  </div>
+
+                </a> <!-- / .row -->
+
+                <!-- Collapse -->
+                <div class="collapse" id="notecardTwo" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. At the notecard page, click "Add New Card" button. Then, you will see making notecard page.</br>
+                      2. You have to choose a card package by clicking upper right side dropdown button.</br>
+                      3. You can add an image from your computer when you click "Choose image" button. </br>
+                      4. After filling in word, part of speech, and definition forms, click "Save" button. </br> </br>
+                      <b>Congratulations!</b> You made your first notecard successfully.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#notecardThree"
+                  role="button" aria-expanded="false" aria-controls="notecardThree">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I make a notecard with search history?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="notecardThree" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. At the making notecard page, you may see search history list on the left side.</br>
+                      2. You have to choose words that you want to make notecards and check the corresponding checkbox.</br>
+                      👉&nbsp;&nbsp; You can add the checked words into the existing package by clicking "Add to Package" button. </br>
+                      👉&nbsp;&nbsp; You can add the checked words into a new package by clicking "Add to New Package" button. </br> </br>
+                      <b>Congratulations!</b> You made your notecards successfully.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#notecardFour"
+                  role="button" aria-expanded="false" aria-controls="notecardFour">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I see my notecard?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="notecardFour" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      👉&nbsp;&nbsp; From making notecard page, after filling in the all notecard forms and click "Save" button, it automatically shows the notecard that you just made. </br>
+                      👉&nbsp;&nbsp; From notecard page, you have to click the word inside the packaget hat you want to see. Then, it automatically shows the notecard.</br>
+                  
+                    </div>
+              
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#notecardFive"
+                  role="button" aria-expanded="false" aria-controls="notecardFive">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I edit my notecard?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="notecardFive" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. At the showCard page, you can see the edit icon on the top of displaying notecard. </br>
+                      2. Click the edit icon. It will display a form let you edit the notecard. </br>
+                      3. After you finished editting, click the "Submit" button. </br>
+                    </br>
+                    <b>Congratulations!</b> You made see the change successfully.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#notecardSix"
+                  role="button" aria-expanded="false" aria-controls="notecardSix">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I delete my notecard?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="notecardSix" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. At the showCard page, you can see the trashcan icon on the top of displaying notecard. </br>
+                      2. Click the trashcan icon. It will delete the notecard right away. </br>
+                      </br>
+                      <b>Congratulations!</b> You deleted your notecard successfully.
+                    </div>
+              
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#notecardSeven"
+                  role="button" aria-expanded="false" aria-controls="notecardSeven">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I delete my package?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->            
+                <!-- Collapse -->
+                <div class="collapse" id="notecardSeven" data-bs-parent="#notecardPart">
+                  <div class="py-5">
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      1. At the notecard page, you can see the "Delete Package" button at the bottom of the list. </br>
+                      2. Click the "Delete Package" button. And check the package that you want to delete. </br>
+                      3. After checked the package, click "Delete" button. Then, it will delete the package right a way. </br>
+                      </br>
+                      <b>Be Careful!</b> All the notecards under the chosen package are deleted together automatically.
+                    </div>
+              
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Account Part -->
+          <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="accountPart">
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center">
+                  <div class="me-auto">
+
+                    <!-- Heading -->
+                    <h4 class="fw-bold mb-0">
+                      👩‍💻&nbsp;&nbsp;Account
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="fs-sm text-muted mb-0">
+                      Make an account, edit user information and delete the account.
+                    </p>
+
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#accountOne"
+                  role="button" aria-expanded="false" aria-controls="accountOne">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I change the password?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a>
+              
+                <!-- Collapse -->
+                <div class="collapse" id="accountOne" data-bs-parent="#accountPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "My Page" button on the upper right corner.</li>
+                        <li>Click the "edit" text on the right side of password.</li>
+                        <li>Enter the your current password in the "Origin Password" text box.</li>
+                        <li>Enter the new password in the "New Password" text box.</li>
+                        <li>If you enter the right current password, your password will be changed into new password you typed.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#accountTwo"
+                  role="button" aria-expanded="false" aria-controls="accountTwo">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I change the profile picture?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="accountTwo" data-bs-parent="#accountPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "My Page" button on the upper right corner.</li>
+                        <li>Click the "edit" text on the right side of the picture.</li>
+                        <li>Select and upload new picture file.</li>
+                        <li>Click the "Submit" button.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#accountThree"
+                  role="button" aria-expanded="false" aria-controls="accountThree">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I change the name?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="accountThree" data-bs-parent="#accountPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "My Page" button on the upper right corner.</li>
+                        <li>Click the "edit" text on the right side of the name.</li>
+                        <li>Enter tne new name in the "Name" text box.</li>
+                        <li>Click the "Submit" button.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#accountFour"
+                  role="button" aria-expanded="false" aria-controls="accountFour">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I delete account?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="accountFour" data-bs-parent="#accountPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "My Page" button on the upper right corner.</li>
+                        <li>Click the "delete your account" on the bottom of the basic information.</li>
+                        <li>Enter the password in the text box.</li>
+                        <li>Click the "Delete" button, then the alert message will appear.</li>
+                        <li>If click the 'Yes" button, your account will be deleted. (You cannot sign up with the same email)</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              <div class="list-group-item">
+              
+                <!-- Toggle -->
+                <a class="d-flex align-items-center text-reset text-decoration-none" data-bs-toggle="collapse" href="#accountFive"
+                  role="button" aria-expanded="false" aria-controls="accountFive">
+              
+                  <!-- Title -->
+                  <span class="me-4">
+                    How can I make an account?
+                  </span>
+              
+                  <!-- Metadata -->
+                  <div class="text-muted ms-auto">
+              
+                    <!-- Chevron -->
+                    <span class="collapse-chevron text-muted">
+                      <i class="fe fe-lg fe-chevron-down"></i>
+                    </span>
+              
+                  </div>
+              
+                </a> <!-- / .row -->
+              
+                <!-- Collapse -->
+                <div class="collapse" id="accountFive" data-bs-parent="#accountPart">
+                  <div class="py-5">
+              
+                    <!-- Text -->
+                    <div class="text-gray-700">
+                      <ol>
+                        <li>Click the "Sign up" button on the upper right corner.</li>
+                        <li>Enter the email, password, and name.</li>
+                        <li>Click the "Sign up" button on the bottom.</li>
+                        <li>If sign up is successful, the suceess message will appear.</li>
+                        <li>After that, move to the search automatically.</li>
+                      </ol>
+                    </div>
+              
+                  </div>
+                </div>
+              
+              </div>
+              </div>
+              </div>
+
+
+          <!-- Divider -->
+          <hr class="border-gray-300 my-6 my-md-8">
+
+          <!-- Header -->
+          <h3 class="fw-bold">
+            People
+          </h3>
+
+          <!-- people -->
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+          
+              <!-- Card -->
+              <div class="card card-border border-dark shadow-lg mb-6 mb-md-8 mb-lg-0 lift lift-lg">
+                <div class="card-body text-center">
+          
+                  <!-- Icon -->
+                  <img id="my-img" class="rounded-circle" width="50%" height="auto"
+                    src="{{ url_for('static', filename='assets/img/people/kim.jpg') }}" alt="..." />
+                  <br />
+          
+                  <!-- Heading -->
+                  <h4 class="fw-bold">
+                    Yoora Kim
+                  </h4>
+          
+                  <!-- Text -->
+                  <p class="text-gray-700 mb-5">
+                    yoora.kim@stonybrook.edu
+                  </p>
+          
+                  <!-- Badge -->
+                  <span class="badge rounded-pill bg-dark-soft">
+                    <span class="h6 text-uppercase">
+                      Lead programmer
+                    </span>
+                  </span>
+          
+                </div>
+              </div>
+          
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+          
+              <!-- Card -->
+              <div class="card card-border border-primary-desat shadow-lg mb-6 mb-md-8 mb-lg-0 lift lift-lg">
+                <div class="card-body text-center">
+          
+                  <!-- Icon -->
+                  <img id="my-img" class="rounded-circle" width="50%" height="auto"
+                    src="{{ url_for('static', filename='assets/img/people/kang.jpg') }}" alt="..." />
+                  <br />
+          
+                  <!-- Heading -->
+                  <h4 class="fw-bold">
+                    Seung-jae Kang
+                  </h4>
+          
+                  <!-- Text -->
+                  <p class="text-gray-700 mb-5">
+                    seungjae.kang@stonybrook.edu
+                  </p>
+          
+                  <!-- Badge -->
+                  <span class="badge rounded-pill bg-dark-soft">
+                    <span class="h6 text-uppercase">
+                      Designer
+                    </span>
+                  </span>
+          
+                </div>
+              </div>
+          
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+          
+              <!-- Card -->
+              <div class="card card-border border-danger shadow-lg lift lift-lg">
+                <div class="card-body text-center">
+          
+                  <!-- Icon -->
+                  <img id="my-img" class="rounded-circle" width="50%" height="auto"
+                    src="{{ url_for('static', filename='assets/img/people/ko.jpg') }}" alt="..." />
+                  <br />
+          
+                  <!-- Heading -->
+                  <h4 class="fw-bold">
+                    Seo-young Ko
+                  </h4>
+          
+                  <!-- Text -->
+                  <p class="text-gray-700 mb-5">
+                    seoyoung.ko@stonybrook.edu
+                  </p>
+          
+                  <!-- Badge -->
+                  <span class="badge rounded-pill bg-dark-soft">
+                    <span class="h6 text-uppercase">
+                      Designer
+                    </span>
+                  </span>
+          
+                </div>
+              </div>
+          
+            </div>
+          </div> <!-- / .row -->
+          
+          </div>
+          </div> <!-- / .row -->
+          </div> <!-- / .container -->
+          </section>
+          
+          <!-- FOOTER -->
+          <footer class="py-8 py-md-11 bg-gray-200" style="margin-top: 10vh">
+            <div class="container">
+              <div class="row">
+                <p class="text-gray-700 mb-2 text-center">
+                  Copyright &copy; CSE 416 The ALL Dictionary
+                </p>
+              </div>
+            </div>
+          </footer>
+          
+          <!-- JAVASCRIPT -->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+          
+          <!-- Map JS -->
+          <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+          
+          <!-- Vendor JS -->
+          <script src="{{ url_for('static', filename='assets/js/vendor.bundle.js') }}"></script>
+          
+          <!-- Theme JS -->
+          <script src="{{ url_for('static', filename='assets/js/theme.bundle.js') }}"></script>
+          
+          <!-- Sign out -->
+          <script type="text/javascript" src="{{ url_for('static', filename='assets/js/signout.js') }}"></script>
+          </body>
+          
+</html>

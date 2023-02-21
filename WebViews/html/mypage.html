@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='assets/favicon/favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Map CSS -->
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"
+    />
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/libs.bundle.css') }}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/theme.bundle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/416.css') }}" />
+
+    <script
+      src="https://kit.fontawesome.com/e547ffbc9a.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Title -->
+    <title>The ALL Dictionary</title>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-gray-200">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="./">
+          <img
+            src="{{ url_for('static', filename='assets/img/brand.svg') }}"
+            class="navbar-brand-img"
+            alt="..."
+          />
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <!-- Toggler -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fe fe-x"></i>
+          </button>
+
+          <!-- Navigation -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./about"> About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./"> Search </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./cardHome"> Card </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./squiz"> Quiz </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./wc"> Challenge </a>
+            </li>
+          </ul>
+
+          <!-- Button -->
+          <a
+          href="./mypage"
+          class="btn btn-primary shadow lift me-1 ms-auto"
+          >
+            My page
+          </a>
+          <a id="signout-btn" class="btn btn-primary lift">Sign out</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="pt-4 pt-md-11">
+      <div class="container-md">
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <!-- Card -->
+            <div
+              class="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg"
+            >
+              <!-- Collapse -->
+              <div class="collapse d-md-block" id="sidenavCollapse">
+                <div class="card-body">
+                  <!-- Heading -->
+                  <h6 class="fw-bold text-uppercase mb-3">Account</h6>
+
+                  <!-- List -->
+                  <ul class="card-list list text-gray-700 mb-6">
+                    <li class="list-item active">
+                      <a class="list-link text-reset" href="./mypage.html">
+                        General
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-9">
+            <!-- Card -->
+            <div class="card card-bleed shadow-light-lg mb-6">
+              <div class="card-header">
+                <!-- Heading -->
+                <h4 class="mb-0">Basic Information</h4>
+              </div>
+              <div class="card-body">
+                <!-- List group -->
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="avatar avatar-xl">
+
+                      {%if account.profilePictureURL %}
+                        <img
+                        id="my-img"
+                        class="avatar-img rounded-circle"
+                        src="{{account.profilePictureURL}}"
+                        alt="..."
+                      />
+                      {% else %}
+                        <img
+                          id="my-img"
+                          class="avatar-img rounded-circle"
+                          src="{{ url_for('static', filename='assets/img/avatars/no_image.png') }}"
+                          alt="..."
+                        />
+                      {% endif %}
+                    </div>
+                    <span class="badge rounded-pill bg-dark-soft ml-10">
+                      <span class="h6 text-uppercase">
+                        {%if isAdmin == 1 %}
+                          Admin
+                        {% else %}
+                          User
+                        {% endif %}
+                      </span>
+                    </span>
+                    <a
+                      class="text-primary"
+                      style="float: right"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editProfileModal"
+                      >edit</a
+                    >
+                  </div>
+                  <div class="list-group-item">
+                    <!-- Heading -->
+                    <p class="mb-0">User Email</p>
+
+                    <!-- Text -->
+                    <p class="small text-gray-700">{{account.email}}</p>
+                  </div>
+                  <div class="list-group-item">
+                    <!-- Heading -->
+                    <p class="mb-0">
+                      Password
+                      <a
+                        class="text-primary"
+                        style="float: right"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editPasswordModal"
+                        >edit</a
+                      >
+                    </p>
+
+                    <!-- Text -->
+                    <p class="small text-gray-700">*******</p>
+                  </div>
+
+                  <div class="list-group-item">
+                    <!-- Heading -->
+                    <p class="mb-0">
+                      Name
+                      <a
+                        class="text-primary"
+                        style="float: right"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editNameModal"
+                        >edit</a
+                      >
+                    </p>
+
+                    <!-- Text -->
+                    <p id="name" class="small text-gray-700">{{account.name}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-center mb-0">
+              <small class="text-muted"
+                >If you no longer want to use The ALL Dictionary, you can
+                <a
+                  class="text-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#accountDeleteModal"
+                  >delete your account</a
+                >.</small
+              >
+            </p>
+
+            <!-- Change Profile Modal -->
+            <div
+              class="modal fade"
+              id="editProfileModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Change Profile Picture
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                   
+                      <div class="mb-3">
+                        <label for="newProfile" class="form-label"
+                          >Profile Picture</label
+                        >
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="newProfile"
+                        />
+                      </div>
+                      <br />
+                      <hr />
+                      <div>
+                        <button
+                          id="upload-file"
+                          style="float: right; margin-left: 5px"
+                          type="submit"
+                          class="btn btn-primary"
+                        >
+                          Submit</button
+                        ><button
+                          style="float: right"
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Change Password Modal -->
+            <div
+              class="modal fade"
+              id="editPasswordModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Change Password
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    
+                      <div class="mb-3">
+                        <label for="editPassword" class="form-label"
+                          >Origin Password</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="originPassword"
+                        />
+                        <div id="pw-msg" style="color:red;font-size:12px;height:20px;"></div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="newPassword" class="form-label"
+                          >New Password</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="newPassword"
+                        />
+                      </div>
+                      <br />
+                      <hr />
+                      <div>
+                        <button
+                        id="change-pw-btn"
+                          style="float: right; margin-left: 5px"
+                          type="submit"
+                          class="btn btn-primary"
+                        >
+                          Submit</button
+                        ><button
+                          style="float: right"
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Change Name Modal -->
+            <div
+              class="modal fade"
+              id="editNameModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Change Name
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    
+                      <div class="mb-3">
+                        <label for="editName" class="form-label">Name</label>
+                        <input type="name" class="form-control" id="editName" />
+                      </div>
+                      <br />
+                      <hr />
+                      <div>
+                        <button
+                          id="change-name-btn"
+                          style="float: right; margin-left: 5px"
+                          type="submit"
+                          class="btn btn-primary"
+                        >
+                          Submit</button
+                        ><button
+                          style="float: right"
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Delete Modal -->
+            <div
+              class="modal fade"
+              id="accountDeleteModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Delete Account
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    If you want to delete your account, please enter the password.
+                   
+                      <div class="mb-3">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="pw-for-del"
+                        />
+                        <div id="del-msg" style="color:red;font-size:12px;height:20px;"></div>
+                      </div>
+                      <br />
+                      <hr />
+                      <div>
+                        <button
+                          id="delete-btn"
+                          style="float: right; margin-left: 5px"
+                          type="submit"
+                          class="btn btn-danger"
+                        >
+                          Delete</button
+                        ><button
+                          style="float: right"
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- / .row -->
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 py-md-11 bg-gray-200" style="margin-top: 10vh">
+      <div class="container">
+        <div class="row">
+          <p class="text-gray-700 mb-2 text-center">
+            Copyright &copy; CSE 416 The ALL Dictionary
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
+    <!-- Vendor JS -->
+    <script src="{{ url_for('static', filename='assets/js/vendor.bundle.js') }}"></script>
+
+    <!-- Theme JS -->
+    <script src="{{ url_for('static', filename='assets/js/theme.bundle.js') }}"></script>
+    
+    <!-- Sign out -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/signout.js') }}"></script>
+    
+    <script src="//cdn.rawgit.com/placemarker/jQuery-MD5/master/jquery.md5.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-storage.js"></script>
+    <script>
+        var originalPassword = JSON.parse('{{ account.password | tojson }}');
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/mypage.js') }}"></script>
+    
+  </body>
+</html>
