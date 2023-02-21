@@ -1,6 +1,17 @@
 # TheALLDictionary
 CSE 416 final project at the State University of New York Korea (SUNY Korea)
 
+## &#128221; Introduction
+### Problem
+
+When people do not know an English word, they have to search its definition from a dictionary. Although they may be satisfied with the meanings and the example sentences given from the dictionary, they may also be dissatisfied when they cannot fully grasp the word after reading the dictionary’s explanations. In this case, they then have to search its meaning through other dictionaries, encyclopedias or search relevant photos or videos from Google or YouTube for full understandings.
+
+### Solution 
+
+“TheALLDictionary” is a web-based application that helps people to search the meanings of the term from Merriam-Webster’s Learner’s dictionary, Merriam-Webster dictionary, Oxford English Dictionary, Urban dictionary, WordNet, synonym.com Wiktionary, Wikipedia, Google News, Google Images, YouTube at once. Here Merriam-Webster’s Learner’s is the easiest dictionary in which the terms are explained in most simple and plain English. By contrast, the Merriam-Webster dictionary explains the terms at the intermediate level, and the Oxford English Dictionary explains them at more advanced levels. Thus, the Urban dictionary is especially useful for finding the definitions of slang words. Hence the user can find the explanations of the term at various levels from each dictionary. Thus, if a dictionary is not sufficient to understand the meaning of the word, then the user can refer to Wikipedia, Google News, Google Images and YouTube videos to understand more thoroughly.
+
+The target audience of TheALLDictionary is someone who wants to search for the definition of an English word. Nonetheless, it is expected that students who learn English at school will use this application most frequently. Therefore, TheALLDictionary will include additional features that help people to memorise the vocabularies that they have searched for. These features include creating and shuffling note cards for testing their learnings, creating and taking sample exams, sharing note cards that the user has made to its friends.
+
 ## &#128101; About Members and Roles
 
 #### Yoora Kim  [@yr2351](https://github.com/yr2351)
@@ -18,19 +29,9 @@ CSE 416 final project at the State University of New York Korea (SUNY Korea)
 * Teaching Assistant Professor in Computer Science at SUNY Korea
 
 ## &#128197; Project Timeline
-*2021/03 ~ 2021/06*
+**2021/03 ~ 2021/06**
 
-## Problem
-
-When people do not know an English word, they have to search its definition from a dictionary. Although they may be satisfied with the meanings and the example sentences given from the dictionary, they may also be dissatisfied when they cannot fully grasp the word after reading the dictionary’s explanations. In this case, they then have to search its meaning through other dictionaries, encyclopedias or search relevant photos or videos from Google or YouTube for full understandings.
-
-## Solution 
-
-“TheALLDictionary” is a web-based application that helps people to search the meanings of the term from Merriam-Webster’s Learner’s dictionary, Merriam-Webster dictionary, Oxford English Dictionary, Urban dictionary, WordNet, synonym.com Wiktionary, Wikipedia, Google News, Google Images, YouTube at once. Here Merriam-Webster’s Learner’s is the easiest dictionary in which the terms are explained in most simple and plain English. By contrast, the Merriam-Webster dictionary explains the terms at the intermediate level, and the Oxford English Dictionary explains them at more advanced levels. Thus, the Urban dictionary is especially useful for finding the definitions of slang words. Hence the user can find the explanations of the term at various levels from each dictionary. Thus, if a dictionary is not sufficient to understand the meaning of the word, then the user can refer to Wikipedia, Google News, Google Images and YouTube videos to understand more thoroughly.
-
-The target audience of TheALLDictionary is someone who wants to search for the definition of an English word. Nonetheless, it is expected that students who learn English at school will use this application most frequently. Therefore, TheALLDictionary will include additional features that help people to memorise the vocabularies that they have searched for. These features include creating and shuffling note cards for testing their learnings, creating and taking sample exams, sharing note cards that the user has made to its friends.
-
-## Tools and technologies
+## &#128736; Tools and technologies
 
 ### Programming languages and Database Management System (DBMS) used
 
@@ -104,7 +105,7 @@ Note: For Method 2, if you have already cloned the repository before, then you c
 git type
 ```
 
-## How to build this software
+## &#128191; How to build this software
 
 Note that the instructions are intended to work on Windows 10 because all the codes have been written in Windows 10 environment.
 
@@ -235,7 +236,7 @@ last edit: 2021.06.03 05:00 PM (KST)
 ### For online site
 last deploy: 2021.06.03 05:00 PM (KST), Released v41 (Closed)
 
-## Bug tracking
+## 🐛Bug tracking
 
 * All users can view and report a bug in "GitHub Issues" of our repository. 
 * Here is the URL for viewing and reporting a list of bugs: https://github.com/syko0531/CSE416/issues (Closed)
