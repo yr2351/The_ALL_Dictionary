@@ -29,7 +29,7 @@ The target audience of TheALLDictionary is someone who wants to search for the d
 * Teaching Assistant Professor in Computer Science at SUNY Korea
 
 ## &#128197; Project Timeline
-**2021/03 ~ 2021/06**
+**2021/04 ~ 2021/06**
 
 ## &#128736; Tools and technologies
 
